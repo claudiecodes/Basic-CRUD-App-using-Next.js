@@ -2,7 +2,7 @@ import { database } from "@/config";
 import { ObjectId } from "mongodb";
 
 export const readNote = async () => {
-  const notes = await database.collection("Notes").find().toArray();
+  const notes = await database.collection("notes").find().toArray();
 
   return notes;
 };
@@ -15,7 +15,7 @@ export const createNote = async ({
   description: string;
 }) => {
   const note = await database
-    .collection("Notes")
+    .collection("notes")
     .insertOne({ title, description });
   return note;
 };
@@ -31,7 +31,7 @@ export const updateNote = async ({
 }) => {
   const newId = new ObjectId(_id);
   const note = await database
-    .collection("Notes")
+    .collection("notes")
     .findOneAndUpdate(
       { _id: newId },
       { $set: { title, description } },
@@ -44,7 +44,7 @@ export const updateNote = async ({
 export const deleteNote = async ({ _id }: { _id: string }) => {
   const newId = new ObjectId(_id);
   const note = await database
-    .collection("Notes")
+    .collection("notes")
     .findOneAndDelete({ _id: newId });
 
   return note;

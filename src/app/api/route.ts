@@ -3,11 +3,7 @@ import { createNote, readNote } from "@/model";
 export const GET = async () => {
   const notes = await readNote();
 
-  return Response.json({
-    status: 200,
-    message: "Successfully read notes",
-    notes,
-  });
+  return Response.json(notes);
 };
 
 export const POST = async (request: Request) => {
@@ -18,6 +14,10 @@ export const POST = async (request: Request) => {
   return Response.json({
     status: 201,
     message: "Successfuly add new note",
-    note,
+    note: {
+      _id: note.insertedId,
+      title,
+      description,
+    },
   });
 };
