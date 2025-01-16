@@ -1,7 +1,6 @@
 "use client";
 
 import NotesCard from "@/components/cards/NotesCard";
-// import SearchCard from "@/components/cards/SearchCard";
 import { ThemeToggle } from "@/components/themes/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -79,27 +78,30 @@ export default function Home() {
         {loading ? (
           <p className="text-center mt-10">Please wait...</p>
         ) : (
-          <div className="grid gap-6 mt-20 px-10 w-full md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {paginatedNotes.map((note) => (
-              <NotesCard key={note._id} note={note} />
-            ))}
-          </div>
+          <>
+            <div className="grid gap-6 mt-20 px-10 w-full md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {paginatedNotes.map((note) => (
+                <NotesCard key={note._id} note={note} />
+              ))}
+            </div>
+
+            <div className="container mx-auto px-4 mb-12 flex justify-center items-center gap-4 mt-10">
+              {Array.from({ length: totalPages }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                    currentPage === index + 1
+                      ? "bg-black text-white dark:bg-white dark:text-black"
+                      : "bg-gray-200 text-gray-800 hover:bg-gray-400 dark:bg-gray-700 dark:text-white"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </>
         )}
-        <div className="container mx-auto px-4 mb-12 flex justify-center items-center gap-4 mt-10">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                currentPage === index + 1
-                  ? "bg-black text-white dark:bg-white dark:text-black" // Active button (dark grey background with white text)
-                  : "bg-gray-200 text-gray-800 hover:bg-gray-400 dark:bg-gray-700 dark:text-white" // Inactive button (light grey background with darker text, hover state darker)
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
       </main>
     </>
   );
