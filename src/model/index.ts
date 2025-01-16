@@ -1,13 +1,16 @@
 import { database } from "@/config";
 import { ObjectId } from "mongodb";
 
-export const readNote = async () => {
+export const readNote = async (search: string = "") => {
+  const query = search ? { title: { $regex: search, $options: "i" } } : {};
+
   const notes = await database
     .collection("notes")
-    .find()
+    .find(query)
     .sort({ _id: -1 })
     .toArray();
 
+  console.log(query, "<< di model");
   return notes;
 };
 

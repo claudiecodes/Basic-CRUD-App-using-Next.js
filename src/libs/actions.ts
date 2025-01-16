@@ -2,10 +2,15 @@
 
 import { revalidatePath } from "next/cache";
 
-export const fetchGET = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api`, {
-    cache: "no-store",
-  });
+export const fetchGET = async (query: string = "") => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api${
+      query ? `?search=${encodeURIComponent(query)}` : ""
+    }`,
+    {
+      cache: "no-store",
+    }
+  );
 
   const responseJson = await response.json();
   revalidatePath("/");

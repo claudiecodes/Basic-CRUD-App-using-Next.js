@@ -1,9 +1,10 @@
 "use client";
 
 import NotesCard from "@/components/cards/NotesCard";
-import SearchCard from "@/components/cards/SearchCard";
+// import SearchCard from "@/components/cards/SearchCard";
 import { ThemeToggle } from "@/components/themes/ThemeToggle";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { fetchGET } from "@/libs/actions";
 import { Note } from "@/libs/types";
 import Link from "next/link";
@@ -12,15 +13,25 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [notes, setNotes] = useState<Note[]>([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const fetchNotes = async () => {
-    const fetchedNotes: Note[] = await fetchGET();
-    setNotes(fetchedNotes);
+  const fetchNotes = async (query = "") => {
+    setLoading(true);
+    try {
+      const fetchedNotes: Note[] = await fetchGET(query);
+      setNotes(fetchedNotes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchNotes();
   }, []);
+
   const maxLimit = 8;
   const totalPages = notes.length ? Math.ceil(notes.length / maxLimit) : 1;
   const paginatedNotes = notes.slice(
@@ -30,6 +41,11 @@ export default function Home() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+  };
+  const handleSearch = () => {
+    setSearch("");
+    setCurrentPage(1);
+    fetchNotes(search);
   };
   return (
     <>
@@ -42,19 +58,33 @@ export default function Home() {
             Notes App
           </h1>
         </div>
+
         <div className="flex justify-end mr-12">
-          <SearchCard />
+          <div className="flex flex-cols w-[300px] gap-4 mb-10">
+            <Input
+              placeholder="Search by title..."
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
+            />
+            <Button onClick={handleSearch} variant="secondary">
+              Search
+            </Button>
+          </div>
         </div>
         <div className="flex justify-center">
           <Link href="/add">
             <Button>Add Note</Button>
           </Link>
         </div>
-        <div className="grid gap-6 mt-20 px-10 w-full md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {paginatedNotes.map((note) => (
-            <NotesCard key={note._id} note={note} />
-          ))}
-        </div>
+        {loading ? (
+          <p className="text-center mt-10">Please wait...</p>
+        ) : (
+          <div className="grid gap-6 mt-20 px-10 w-full md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {paginatedNotes.map((note) => (
+              <NotesCard key={note._id} note={note} />
+            ))}
+          </div>
+        )}
         <div className="container mx-auto px-4 mb-12 flex justify-center items-center gap-4 mt-10">
           {Array.from({ length: totalPages }).map((_, index) => (
             <button
