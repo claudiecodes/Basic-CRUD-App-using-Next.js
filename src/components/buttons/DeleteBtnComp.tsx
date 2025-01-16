@@ -2,6 +2,7 @@
 
 import { fetchDELETE } from "@/libs/actions";
 import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 
 export default function DeleteBtnComp({ _id }: { _id: string }) {
   const router = useRouter();
@@ -16,7 +17,9 @@ export default function DeleteBtnComp({ _id }: { _id: string }) {
   return (
     <>
       <div>
-        <button onClick={handleDelete}>Delete</button>
+        <Button variant="outline" onClick={handleDelete}>
+          Delete
+        </Button>
       </div>
     </>
   );

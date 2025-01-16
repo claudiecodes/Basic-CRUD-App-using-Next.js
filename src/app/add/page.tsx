@@ -1,5 +1,5 @@
-import { AddFormCard } from "@/components/AddFormCard";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { AddFormCard } from "@/components/cards/AddFormCard";
+import { ThemeToggle } from "@/components/themes/ThemeToggle";
 // import AddFormComp from "@/components/AddFormComp";
 
 export default function AddPage() {

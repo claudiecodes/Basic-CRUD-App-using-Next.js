@@ -1,11 +1,24 @@
-import { EditFormCard } from "@/components/EditFormCard";
-import { ThemeToggle } from "@/components/ThemeToggle";
+"use client";
+import { EditFormCard } from "@/components/cards/EditFormCard";
+import { ThemeToggle } from "@/components/themes/ThemeToggle";
 import { Suspense } from "react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function EditPage() {
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="flex justify-center min-h-screen items-center">
+            {" "}
+            <DotLottieReact
+              src="https://lottie.host/7381f62c-aebd-471b-8a59-d7eff043b943/PmRcXKkT3L.lottie"
+              loop
+              autoplay
+            />
+          </div>
+        }
+      >
         <main className="p-10 justify-center">
           <div className="flex justify-end mr-10">
             <ThemeToggle />

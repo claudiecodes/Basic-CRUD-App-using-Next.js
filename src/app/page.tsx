@@ -1,11 +1,10 @@
 "use server";
 
-import DeleteBtnComp from "@/components/DeleteBtnComp";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import NotesCard from "@/components/cards/NotesCard";
+import { ThemeToggle } from "@/components/themes/ThemeToggle";
 
 import { fetchGET } from "@/libs/actions";
 import { Note } from "@/libs/types";
-import Link from "next/link";
 
 export default async function Home() {
   const notes: Note[] = await fetchGET();
@@ -21,29 +20,10 @@ export default async function Home() {
             Notes App
           </h1>
         </div>
-
-        <div className="flex justify-center mt-20">
-          <div>
-            {notes.map((note) => (
-              <div key={note._id}>
-                <div>Title:{note.title}</div>
-                <div>Description: {note.description}</div>
-                <DeleteBtnComp _id={note._id} />
-                <div>
-                  <Link
-                    href={`/edit?id=${note._id}&title=${encodeURIComponent(
-                      note.title
-                    )}&description=${encodeURIComponent(note.description)}`}
-                  >
-                    Edit
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div>
-            <Link href="/add">Add new note</Link>
-          </div>
+        <div className="grid gap-6 mt-20 px-10 w-full md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {notes.map((note) => (
+            <NotesCard key={note._id} notes={notes} />
+          ))}
         </div>
       </main>
     </>
