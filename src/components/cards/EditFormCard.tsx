@@ -14,6 +14,7 @@ import { fetchPUT } from "@/libs/actions";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { Textarea } from "../ui/textarea";
 
 export function EditFormCard() {
   const searchParams = useSearchParams();
@@ -25,15 +26,25 @@ export function EditFormCard() {
 
   const [title, setTitle] = useState(existingTitle);
   const [description, setDescription] = useState(existingDescription);
+  const [loading, setLoading] = useState(false);
+  const textLimit = 250;
+
+  const handleLimit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length <= textLimit) {
+      setDescription(e.target.value);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await fetchPUT({ _id, title, description });
-
-      router.push("/");
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
+      router.push("/");
     }
   };
 
@@ -55,16 +66,24 @@ export function EditFormCard() {
                 placeholder="Enter title here"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                disabled={loading}
               />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="framework">Description</Label>
-              <Input
-                id="name"
+              <Textarea
+                id="input"
                 placeholder="Enter description here"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={handleLimit}
+                disabled={loading}
+                style={{ width: "100%", height: "140px" }}
               />
+              <div
+                style={{ fontSize: "14px", color: "gray", marginTop: "5px" }}
+              >
+                {textLimit - description.length} characters left
+              </div>
             </div>
           </div>
         </form>
@@ -73,7 +92,9 @@ export function EditFormCard() {
         <Button onClick={handleCancel} variant="outline">
           Cancel
         </Button>
-        <Button onClick={handleSubmit}>Update</Button>
+        <Button onClick={handleSubmit} disabled={loading}>
+          {loading ? "Saving..." : "Save"}
+        </Button>
       </CardFooter>
     </Card>
   );

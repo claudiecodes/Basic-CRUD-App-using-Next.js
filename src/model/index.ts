@@ -2,7 +2,11 @@ import { database } from "@/config";
 import { ObjectId } from "mongodb";
 
 export const readNote = async () => {
-  const notes = await database.collection("notes").find().toArray();
+  const notes = await database
+    .collection("notes")
+    .find()
+    .sort({ _id: -1 })
+    .toArray();
 
   return notes;
 };

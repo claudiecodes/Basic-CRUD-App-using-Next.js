@@ -8,7 +8,6 @@ export const fetchGET = async () => {
   });
 
   const responseJson = await response.json();
-
   revalidatePath("/");
 
   return responseJson;
