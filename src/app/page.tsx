@@ -1,6 +1,7 @@
 "use server";
 
 import NotesCard from "@/components/cards/NotesCard";
+import SearchCard from "@/components/cards/SearchCard";
 import { ThemeToggle } from "@/components/themes/ThemeToggle";
 import { Button } from "@/components/ui/button";
 
@@ -13,7 +14,7 @@ export default async function Home() {
 
   return (
     <>
-      <main className="p-10 justify-center">
+      <main className="p-10 min-w-[518px]">
         <div className="flex justify-end mr-10">
           <ThemeToggle />
         </div>
@@ -21,6 +22,9 @@ export default async function Home() {
           <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
             Notes App
           </h1>
+        </div>
+        <div className="flex justify-end mr-12">
+          <SearchCard />
         </div>
         <div className="flex justify-center">
           <Link href="/add">
