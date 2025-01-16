@@ -16,11 +16,13 @@ export default async function Home() {
         <div className="flex justify-end mr-10">
           <ThemeToggle />
         </div>
-        <div className="flex justify-center font-bold p-10 text-3xl">
-          <span>Notes App</span>
+        <div className="flex justify-center p-10">
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            Notes App
+          </h1>
         </div>
 
-        <div className="flex justify-center p-10">
+        <div className="flex justify-center mt-20">
           <div>
             {notes.map((note) => (
               <div key={note._id}>
