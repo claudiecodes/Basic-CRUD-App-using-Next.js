@@ -20,7 +20,7 @@ export function AddFormCard() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const textLimit = 250;
+  const textLimit = 200;
 
   const handleLimit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length <= textLimit) {

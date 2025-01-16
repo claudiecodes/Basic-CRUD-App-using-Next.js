@@ -3,3 +3,7 @@ export type Note = {
   title: string;
   description: string;
 };
+
+export type NoteProps = {
+  note: Note;
+};

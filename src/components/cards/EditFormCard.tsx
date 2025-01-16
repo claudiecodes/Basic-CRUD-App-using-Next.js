@@ -27,7 +27,7 @@ export function EditFormCard() {
   const [title, setTitle] = useState(existingTitle);
   const [description, setDescription] = useState(existingDescription);
   const [loading, setLoading] = useState(false);
-  const textLimit = 250;
+  const textLimit = 200;
 
   const handleLimit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length <= textLimit) {
