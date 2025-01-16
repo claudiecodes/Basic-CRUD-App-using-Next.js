@@ -49,8 +49,12 @@ export function AddFormCard() {
   };
   return (
     <Card className="w-[350px]">
-      <CardHeader className="text-center p-10">
-        <CardTitle>Create a new note</CardTitle>
+      <CardHeader className="text-center">
+        <CardTitle>
+          <h3 className="mt-5 scroll-m-20 text-2xl font-semibold tracking-tight">
+            Create a new note
+          </h3>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <form>

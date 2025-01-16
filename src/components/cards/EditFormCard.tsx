@@ -53,8 +53,12 @@ export function EditFormCard() {
   };
   return (
     <Card className="w-[350px]">
-      <CardHeader className="text-center p-10">
-        <CardTitle>Update note</CardTitle>
+      <CardHeader className="text-center">
+        <CardTitle>
+          <h3 className="mt-5 scroll-m-20 text-2xl font-semibold tracking-tight">
+            Update note
+          </h3>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <form>
