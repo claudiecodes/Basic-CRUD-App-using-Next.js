@@ -88,7 +88,7 @@ export default function Home() {
                         note.description.toLowerCase().includes(search);
                 })
                 .map((note) => (
-                  <NotesCard key={note._id} note={note} />
+                  <NotesCard key={note._id} note={note} search={search} />
                 ))}
             </div>
 
