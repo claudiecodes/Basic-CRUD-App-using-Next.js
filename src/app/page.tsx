@@ -61,7 +61,7 @@ export default function Home() {
         <div className="flex justify-end mr-12">
           <div className="flex flex-cols w-[300px] gap-4 mb-10">
             <Input
-              placeholder="Search by title..."
+              placeholder="Search..."
               onChange={(e) => setSearch(e.target.value)}
               value={search}
             />
@@ -80,9 +80,16 @@ export default function Home() {
         ) : (
           <>
             <div className="grid gap-6 mt-20 px-10 w-full md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {paginatedNotes.map((note) => (
-                <NotesCard key={note._id} note={note} />
-              ))}
+              {paginatedNotes
+                .filter((note) => {
+                  return search.toLowerCase() === ""
+                    ? note
+                    : note.title.toLowerCase().includes(search) ||
+                        note.description.toLowerCase().includes(search);
+                })
+                .map((note) => (
+                  <NotesCard key={note._id} note={note} />
+                ))}
             </div>
 
             <div className="container mx-auto px-4 mb-12 flex justify-center items-center gap-4 mt-10">

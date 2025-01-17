@@ -1,9 +1,10 @@
 import { createNote, readNote } from "@/model";
+import { NextResponse } from "next/server";
 
 export const GET = async () => {
   const notes = await readNote();
 
-  return Response.json(notes);
+  return NextResponse.json(notes);
 };
 
 export const POST = async (request: Request) => {
