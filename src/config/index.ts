@@ -7,3 +7,4 @@ if (!client) {
   throw new Error("Mongo DB client connection failed");
 }
 export const database = client.db("Notes");
+
